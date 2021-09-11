@@ -4,4 +4,5 @@ export interface Submission {
     stdin?: string
     stderr?: string
     stdout?: string
+    compile_output?: string
 }

@@ -8,6 +8,8 @@ import { Language } from './Models/Language';
 import { Submission } from './Models/Submission'
 import { GET_LANGUAGES, POST_SUBMISSION } from './api'
 
+declare var bootstrap: any
+
 
 interface StdoutState {
     message: string,
@@ -32,6 +34,12 @@ function App() {
         return decodeURIComponent(escape(window.atob(str)))
     }
 
+    function changeTab(tabName: string){
+        const someTabTriggerEl = document.querySelector(`#${tabName}`)
+        const tab = new bootstrap.Tab(someTabTriggerEl)
+        tab.show()
+    }
+
     async function handleSubmit() {
         const isValid = [language.validate, code.validate].every(fn => fn())
         if (!isValid) return
@@ -43,7 +51,15 @@ function App() {
         })
         const { json } = await request(url, options)
         const submission = json as Submission
-        if (submission.stderr) {
+
+
+        if (submission.compile_output) {
+            setStdout({
+                message: `Error: ${b64_to_utf8(submission.compile_output)}`,
+                error: true
+            })
+        }
+        else if (submission.stderr) {
             setStdout({
                 message: `Error: ${b64_to_utf8(submission.stderr)}`,
                 error: true
@@ -55,6 +71,7 @@ function App() {
                 error: false
             })
         }
+        changeTab('nav-output-tab')
     }
 
 
@@ -83,15 +100,20 @@ function App() {
                     />
                     <TextArea label="Código" name="code" value={code.value} onChange={code.onChange} error={code.error} rows={10} />
 
-                    <div className="row">
-                        <div className="col-6">
-                            <TextArea label="Input" name="input" value={stdin.value} onChange={stdin.onChange} error={stdin.error} rows={3} />
+                    <nav>
+                        <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button className="nav-link active" id="nav-input-tab" data-bs-toggle="tab" data-bs-target="#nav-input" type="button" role="tab" aria-controls="nav-input" aria-selected="true">Input</button>
+                            <button className="nav-link" id="nav-output-tab" data-bs-toggle="tab" data-bs-target="#nav-output" type="button" role="tab" aria-controls="nav-output" aria-selected="false">Output</button>
                         </div>
-                        <div className="col-6">
-                            <TextArea disabled={true} className={stdout.error ? 'text-danger' : ''} label="Output" name="output" value={stdout.message} rows={3} />
+                    </nav>
+                    <div className="tab-content" id="nav-tabContent">
+                        <div className="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
+                            <TextArea label="" name="input" value={stdin.value} onChange={stdin.onChange} error={stdin.error} rows={5} />
+                        </div>
+                        <div className="tab-pane fade" id="nav-output" role="tabpanel" aria-labelledby="nav-output-tab">
+                            <TextArea disabled={true} className={stdout.error ? 'text-danger' : ''} label="" name="output" value={stdout.message} rows={5} />
                         </div>
                     </div>
-
 
                     <div className="row mt-4">
                         {!loading ? (
