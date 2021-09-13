@@ -7,9 +7,9 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/judge" exact>
+                <Route path="/" exact>
                     <li>
-                        <Link to="/judge/iframe">Home</Link>
+                        <Link to="/iframe">Home</Link>
                     </li>
                     <div className="App container my-5">
                         <div className="row d-flex justify-content-center">
@@ -20,7 +20,7 @@ function App() {
                         </div>
                     </div>
                 </Route>
-                <Route path='/judge/iframe' exact>
+                <Route path='/iframe' exact>
                     <Compiler />
                 </Route>
             </Switch>
