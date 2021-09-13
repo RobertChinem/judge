@@ -9,7 +9,6 @@ import { Submission } from '../../Models/Submission'
 
 declare var bootstrap: any
 
-
 interface StdoutState {
     message: string,
     error: boolean
