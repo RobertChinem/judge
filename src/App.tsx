@@ -1,6 +1,6 @@
 import React from 'react';
 import Compiler from './Components/Compiler';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
 
 
 function App() {
