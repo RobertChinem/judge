@@ -17,7 +17,7 @@ interface SelectProps {
 }
 
 
-function Select({ options, label, name, value, onChange, error }: SelectProps) {
+const Select: React.FC<SelectProps> = ({ options, label, name, value, onChange, error }) => {
     return (
         <div className="mb-3">
             <label htmlFor={name} className="form-label">{label}</label>
