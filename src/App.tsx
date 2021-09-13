@@ -9,7 +9,7 @@ function App() {
             <Switch>
                 <Route path="/judge" exact>
                     <li>
-                        <Link to="/iframe">Home</Link>
+                        <Link to="/judge/iframe">Home</Link>
                     </li>
                     <div className="App container my-5">
                         <div className="row d-flex justify-content-center">
