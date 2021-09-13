@@ -1,6 +1,6 @@
 import React from 'react';
 import Compiler from './Components/Compiler';
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 
 function App() {
@@ -8,9 +8,6 @@ function App() {
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <li>
-                        <Link to="/iframe">Home</Link>
-                    </li>
                     <div className="App container my-5">
                         <div className="row d-flex justify-content-center">
                             <div className="col-6 text-center">
